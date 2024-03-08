@@ -8,9 +8,9 @@ def get_cats_info(path) -> list[dict]:
             cat_dict = {}
             # cat_dict['id'], cat_dict['name'], cat_dict['age'] = cat.split(",")
             id, name, age = cat.split(',')
-            cat_dict['id'], cat_dict['name'], cat_dict['age'] = id, name, int(age)
+            cat_dict['id'], cat_dict['name'], cat_dict['age'] = id, name, age.strip()
             cats_info.append(cat_dict) # cat_dict перезаписується
             # print(cat_dict)
         return cats_info
 # get_cats_info("cats_file.txt")
-# print(get_cats_info("cats_file.txt"))
+print(get_cats_info("cats_file.txt"))
