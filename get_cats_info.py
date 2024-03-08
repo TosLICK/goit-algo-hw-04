@@ -13,4 +13,4 @@ def get_cats_info(path) -> list[dict]:
             # print(cat_dict)
         return cats_info
 # get_cats_info("cats_file.txt")
-print(get_cats_info("cats_file.txt"))
+# print(get_cats_info("cats_file.txt"))
