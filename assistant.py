@@ -1,40 +1,46 @@
-def parse_input(user_input):
-    cmd, *args = user_input.split()
-    cmd = cmd.strip().lower()
+def parse_input(user_input): # парсимо ввод користувача
+    cmd, *args = user_input.split() # розбиваємо ввод на команду (перший аргумент) і інші аргументи
+    cmd = cmd.strip().lower() # команду приводимо до нижнього регістру
     return cmd, *args
 
-def add_contact(args: list, contacts: dict):
+def add_contact(args: list, contacts: dict): # якщо введеного контакту в словнику немає, тоді додаємо контакт
     name, phone = args
     if name not in contacts:
-        # contacts[name.lower()] = phone
         contacts[name] = phone
         return "Contact added."
     else:
-        return "Contact already exists."
+        return "Contact already exists." # якщо введений контакт вже є в словнику, тоді виводимо відповідне повідомлення
 
-def change_contact(args: list, contacts: dict):
+def change_contact(args: list, contacts: dict): # змінюємо номер телефону, якщо контакт присутній у словнику
     name, phone = args
     if name in contacts:
         contacts[name] = phone
         return "Contact updated."
     else:
-        return "Contact does not exist."
+        return no_contact() # якщо контакту немає, виводимо відповідне повідомлення
 
-def show_phone(args: list, contacts: dict):
-    # name = str(args[0]).lower()
-    name = str(args[0])
-    return f"{contacts[name]}"
+def show_phone(args: list, contacts: dict): # виводимо номер телефону за заданим ім'ям контакту
+        name = str(args[0])
+        if name in contacts:
+            return f"{contacts[name]}"
+        else:
+            return no_contact() # якщо контакту немає, виводимо відповідне повідомлення
 
-def show_all(contacts):
+def show_all(contacts: dict): # виводимо усі контакти з номерами телефонів
     if contacts:
-        for key, value in contacts.items():
-            print(f"{key.capitalize()} {value}")
+        string = ''
+        for name, phone in contacts.items():
+            string += f"{name} {phone}\n"
+        return string
     else:
-        print("There are no contacts.")
+        return "There are no contacts." # якщо контактів немає, виводимо відповідне повідомлення
     
 def usage():
     return "Invalid command. Usage: 'hello'\n'close'\n'exit'\n'all'\n'add name phone_number'\n"\
             "'change name phone_number'\n'phone name'"
+
+def no_contact():
+    return "Contact does not exist."
 
 def main():
     contacts = {}
@@ -56,7 +62,7 @@ def main():
             elif command == "phone" and len(args) == 1:
                 print(show_phone(args, contacts))
             elif command == "all":
-                show_all(contacts)
+                print(show_all(contacts))
             else:
                 print(usage())
         except ValueError:
